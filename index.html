@@ -1,0 +1,57 @@
+<DOCTYPE HTML>
+<html>
+  <head>
+  </head>
+  <body>
+
+  <div id="yolo"></div>
+  <button class="js-update-1">Update 1</button>
+  <button class="js-update-2">Update 2</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.0/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.0/react-dom.min.js"></script>
+
+    <script src="./index.js"></script>
+    <script>
+      $(function() {
+
+        function updateDOM(data) {
+
+            $('#yolo').empty();
+
+            var $container = $('<div class="inner"></div>');
+            var header = '<h2>' + data.title + '</h2>';
+            var body = '<p>' + data.body + '</p>';
+
+            $container
+              .append(header)
+              .append(body);
+
+            $('#yolo').append($container);
+        }
+
+        function getData(id) {
+          // Get intial data and add to dom
+          $.ajax('https://jsonplaceholder.typicode.com/posts/' + id)
+            .done(function(rsp) {
+              console.log(rsp);
+              updateDOM(rsp);
+            });
+        }
+
+        $('.js-update-1').on('click', function() {
+          getData(1);
+        });
+
+        $('.js-update-2').on('click', function() {
+          getData(2);
+        });
+
+        // Bootstrap
+        getData(1);
+
+      });
+    </script>
+  </body>
+</html>
