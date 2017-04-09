@@ -7,46 +7,32 @@
   <div id="yolo"></div>
   <button class="js-update-1">Update 1</button>
   <button class="js-update-2">Update 2</button>
-  <hr>
-  <div id="yolo2"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.0/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.0/react-dom.js"></script>
 
-    <script src="./index.js"></script>
+    <script src="./create-component.js"></script>
+    <script src="./card.js"></script>
     <script>
       $(function() {
 
+        var componentStore = {};
+
         function updateDOM(data) {
-
-            $('#yolo').empty();
-
-            var $container = $('<div class="inner"></div>');
-            var header = '<h2>' + data.title + '</h2>';
-            var body = '<p>' + data.body + '</p>';
-
-            $container
-              .append(header)
-              .append(body);
-
-            $('#yolo').append($container);
-
-            // Duplicate functionality in React
-            ReactDOM.render(
-              React.createElement(
-                Card,
-                { data: data}
-              ),
-              document.getElementById('yolo2')
-            );
+            if (componentStore['yolo']) {
+              // Update component with setState
+              componentStore['yolo'].setState(data);
+            } else {
+              // Render Component, add to DOM and store it.
+              componentStore['yolo'] = createComponent(Card, data, document.getElementById('yolo'));
+            }
         }
 
         function getData(id) {
           // Get intial data and add to dom
           $.ajax('https://jsonplaceholder.typicode.com/posts/' + id)
             .done(function(rsp) {
-              console.log(rsp);
               updateDOM(rsp);
             });
         }
