@@ -1,4 +1,4 @@
-<DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html>
   <head>
   </head>
@@ -7,10 +7,12 @@
   <div id="yolo"></div>
   <button class="js-update-1">Update 1</button>
   <button class="js-update-2">Update 2</button>
+  <hr>
+  <div id="yolo2"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.0/react.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.0/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.0/react-dom.js"></script>
 
     <script src="./index.js"></script>
     <script>
@@ -29,6 +31,15 @@
               .append(body);
 
             $('#yolo').append($container);
+
+            // Duplicate functionality in React
+            ReactDOM.render(
+              React.createElement(
+                Card,
+                { data: data}
+              ),
+              document.getElementById('yolo2')
+            );
         }
 
         function getData(id) {
